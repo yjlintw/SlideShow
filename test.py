@@ -6,7 +6,7 @@ sys.setdefaultencoding('utf-8')
 yearDivString = '<div id="$year" class="Award">\n$contentYear</div>\n'
 awardDivString = '\t<div class="$award">\n\t\t$contentAward\n\t</div>\n'
 
-rootPath = '.\\resources\\'
+rootPath = './resources/'
 yearPath = ''
 awardTypePath = ''
 prizePath = ''

@@ -4,3 +4,4 @@ resources/*
 *.sublime-workspace
 *.bat
 *.lnk
+html/embeded.html
