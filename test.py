@@ -60,6 +60,8 @@ for yearFolder in yearFolders:
 
 
 file = open('./html/embeded.html', 'w+')
-file.write(outputString.decode("big5").encode("utf-8"))
-
+if os.name == "nt":
+	file.write(outputString.decode("big5").encode("utf-8"))
+else:
+	file.write(outputString.encode("utf-8"))
 
