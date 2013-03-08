@@ -159,12 +159,12 @@ $(document).ready(function ()
 
 		title.html(content[current].name)
 
-		if (extension == 'jpg' || extension == 'png')
+		if (extension == 'jpg' || extension == 'png' || extension == 'jpeg')
 		{
 			source = srcImage;
 			timer = setTimeout(function() {playNext();}, durationImage);
 		}
-		else if (extension == 'mp4' || extension == 'mov')
+		else if (extension == 'mp4' || extension == 'mov' || extension == 'avi')
 		{
 			source = srcVideo;
 		}
