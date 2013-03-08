@@ -84,8 +84,8 @@ li
 	background: -webkit-gradient(
 		linear, left top, left bottom, 
 		from(#555),
-		color-stop(0.05, #222),
-		to(#000));
+		color-stop(0.05, #1D1E19),
+		to(#0a0a0a));
 	
 	float: left;
 	width: 100%;
