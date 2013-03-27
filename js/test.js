@@ -12,7 +12,37 @@ $(document).ready(function ()
 	var timer;
 	var menuColor = [ '#6f73ff', '#7fe22e', '#f92672', '#fd971f', '#e6db74' ];
 	var colorIndex = 0;
+	var timer2;
+	var timeVisible = 5000;
+	timeFadeout();
 
+	function timeFadeout()
+	{
+		timer2 = setTimeout(function(){
+			$('.control').fadeOut();
+		}, timeVisible);
+	}
+
+	$('html').on('touchend', function(e){
+		clearTimeout(timer2);
+		if ($('.control:visible').length)
+		{
+			if (!$(e.target).hasClass('panel') && !$(e.target).hasClass('link'))
+			{
+				$('.control').fadeOut();
+			}
+			else
+			{
+				timeFadeout();
+			}
+		}
+		else
+		{
+			$('.control').fadeIn();
+			timeFadeout();
+		}
+
+	});
 	// get all of the url which would need to be displayed later
 	function retriveData()
 	{
@@ -34,7 +64,7 @@ $(document).ready(function ()
 	function setupMenu()
 	{
 		var menu = $('#menu');
-		var liString = '<li><a class="link" href="#">$</a></li>';
+		var liString = '<li class="panel"><p class="link">$</p></li>';
 		var outputString = '';
 		var yearSet = {};
 
@@ -60,7 +90,7 @@ $(document).ready(function ()
 
 		menu.children('li').each(function(){
 			///// TODO //////
-			var link = $(this).children('a');
+			var link = $(this).children('p');
 			if (link.text().toString() == year)
 			{
 				$(this).addClass('current');
@@ -80,7 +110,7 @@ $(document).ready(function ()
 		var year = content[currentIndex].year;
 		var submenu = $('#submenu');
 		var adwardSet = {};
-		var liString = '<li><a class="link" href="#">$</a></li>';
+		var liString ='<li class="panel"><p class="link">$</p></li>';
 		var outputString = '';
 
 		$.each(content, function(i, obj){
@@ -98,7 +128,7 @@ $(document).ready(function ()
 		submenu.html(outputString);
 
 		submenu.children('li').each(function(){
-			$(this).children('a').addClass('color' + colorIndex++);
+			$(this).children('p').addClass('color' + colorIndex++);
 			if (colorIndex >= menuColor.length)
 			{
 				colorIndex = 0;
@@ -114,7 +144,7 @@ $(document).ready(function ()
 
 		menu.children('li').each(function(){
 			///// TODO //////
-			var link = $(this).children('a');
+			var link = $(this).children('p');
 			if (link.text().toString() == awardType)
 			{
 				
@@ -159,12 +189,12 @@ $(document).ready(function ()
 
 		title.html(content[current].name)
 
-		if (extension == 'jpg' || extension == 'png' || extension == 'jpeg')
+		if (extension == 'jpg' || extension == 'png')
 		{
 			source = srcImage;
 			timer = setTimeout(function() {playNext();}, durationImage);
 		}
-		else if (extension == 'mp4' || extension == 'mov' || extension == 'avi')
+		else if (extension == 'mp4' || extension == 'mov')
 		{
 			source = srcVideo;
 		}
@@ -225,9 +255,10 @@ $(document).ready(function ()
 		return output;
 	}
 
-	$('.link').live('click',function(e){
+	$('.link').live('touchend',function(e){
 		var type = $(this).parent().parent().attr('id');
 		var value = $(this).text();
+
 		if (type == 'submenu')
 		{
 			var index = getIndexByAwardType(value);
@@ -250,13 +281,24 @@ $(document).ready(function ()
 		}
 	});
 
-	$('#naviNext').live('click',function(e){
+	$('#naviNext').on('touchstart', function(e){
+		$('#naviNext').addClass('active');
+	});
+
+	$('#naviNext').on('touchend',function(e){
 		clearTimeout(timer);
 		canvas.find('video').unbind("ended");
+		$('#naviNext').removeClass('active');
 		playNext();
 	});
+
+	$('#naviPrev').on('touchstart', function(e){
+		$('#naviPrev').addClass('active');
+	});
+
+
 	var count = 0;
-	$('#naviPrev').live('click',function(e){
+	$('#naviPrev').on('touchend',function(e){
 		clearTimeout(timer);
 		canvas.find('video').unbind("ended");
 		current--;
@@ -264,6 +306,7 @@ $(document).ready(function ()
 		{
 			current = content.length - 1;
 		}
+		$('#naviPrev').removeClass('active');
 		play(current);
 		setCurrentMenu(current);
 		setupSubmenu(current);

@@ -14,7 +14,7 @@
 		<script type="text/javascript" src="../js/jquery.min.js"></script>
 		<script type="text/javascript" src="../js/test.js"></script>
 	</head>
-	<body>
+	<body oncontextmenu="return false">
 		<div class="container">
 			<div class="test">
 				<div id="input">
@@ -22,12 +22,12 @@
 			</div>
 			<div id="canvas" class="canvas"></div>
 			<div id="title"><ul><li id="titleLeft"></li><li id="titleMiddle"></li><li id="titleRight"></li></ul></div>
-			<div id="naviNext" class="navigation"></div>
-			<div id="naviPrev" class="navigation"></div>
+			<div id="naviNext" class="navigation panel"></div>
+			<div id="naviPrev" class="navigation panel"></div>
 			<div>
-				<ul id="submenu">
+				<ul id="submenu" class="control panel">
 				</ul>
-				<ul id="menu">				
+				<ul id="menu" class="control panel">				
 				</ul>
 			</div>
 		</div>
